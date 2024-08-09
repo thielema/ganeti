@@ -697,7 +697,7 @@ AC_GHC_PKG_REQUIRE(hinotify)
 AC_GHC_PKG_REQUIRE(cryptonite)
 AC_GHC_PKG_REQUIRE(lifted-base)
 AC_GHC_PKG_REQUIRE(lens)
-AC_GHC_PKG_REQUIRE(regex-pcre)
+AC_GHC_PKG_REQUIRE(regex-tdfa)
 AC_GHC_PKG_REQUIRE(old-time)
 AC_GHC_PKG_REQUIRE(temporary)
 

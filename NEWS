@@ -2,6 +2,19 @@ News
 ====
 
 
+Version 3.1.0
+-------------
+
+New dependencies
+~~~~~~~~~~~~~~~~
+
+- regex-pcre is replaced by regex-tdfa.
+  This is a plain Haskell implementation.
+  It also means that regular expressions are now POSIX-compatible,
+  not Perl-compatible, anymore.
+
+
+
 Version 3.0.0
 -------------
 
