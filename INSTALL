@@ -152,8 +152,8 @@ deploy Ganeti on production machines). More specifically:
   version 0.3.2
 - `Crypto <http://hackage.haskell.org/package/Crypto>`_, tested with
   version 4.2.4
-- `regex-pcre <http://hackage.haskell.org/package/regex-pcre>`_,
-  bindings for the ``pcre`` library
+- `regex-tdfa <http://hackage.haskell.org/package/regex-tdfa>`_,
+  plain Haskell POSIX-style regular expressions
 - `attoparsec <http://hackage.haskell.org/package/attoparsec>`_,
   version 0.10 and above
 - `vector <http://hackage.haskell.org/package/vector>`_
@@ -177,7 +177,7 @@ Some of these are also available as package in Debian/Ubuntu::
                     libghc-hslogger-dev libghc-cryptonite-dev \
                     libghc-text-dev libghc-hinotify-dev \
                     libghc-base64-bytestring-dev libghc-zlib-dev \
-                    libghc-regex-pcre-dev libghc-attoparsec-dev
+                    libghc-regex-tdfa-dev libghc-attoparsec-dev
                     libghc-vector-dev libghc-lifted-base-dev \
                     libghc-test-framework-quickcheck2-dev \
                     libghc-test-framework-hunit-dev libghc-temporary-dev \
@@ -190,7 +190,7 @@ In Fedora, some of them are available via packages as well::
   $ yum install ghc ghc-json-devel ghc-network-devel \
                     ghc-parallel-devel ghc-deepseq-devel \
                     ghc-hslogger-devel ghc-text-devel \
-                    ghc-regex-pcre-devel
+                    ghc-regex-tdfa-devel
 
 The most recent Fedora doesn't provide ``inotify``. So these
 need to be installed using ``cabal``.
