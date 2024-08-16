@@ -167,6 +167,13 @@ HS_DIRS = \
 	src/Ganeti/THH \
 	src/Ganeti/Utils \
 	src/Ganeti/WConfd \
+	regex \
+	regex/tdfa \
+	regex/tdfa/Ganeti \
+	regex/tdfa/Ganeti/Query \
+	regex/pcre \
+	regex/pcre/Ganeti \
+	regex/pcre/Ganeti/Query \
 	test/hs \
 	test/hs/Test \
 	test/hs/Test/Ganeti \
@@ -1165,7 +1172,9 @@ HS_LIB_SRCS = \
 	src/Ganeti/WConfd/Persistent.hs \
 	src/Ganeti/WConfd/Server.hs \
 	src/Ganeti/WConfd/Ssconf.hs \
-	src/Ganeti/WConfd/TempRes.hs
+	src/Ganeti/WConfd/TempRes.hs \
+	regex/tdfa/Ganeti/Query/RegEx.hs \
+	regex/pcre/Ganeti/Query/RegEx.hs
 
 if ENABLE_MOND
 HS_LIB_SRCS += src/Ganeti/Monitoring/Server.hs
@@ -2993,7 +3002,9 @@ dist/setup-config: ganeti.cabal $(HS_BUILT_SRCS)
 	  -f`test $(HTEST) == yes && echo "htest" || echo "-htest"` \
 	  -f`test $(ENABLE_MOND) == True && echo "mond" || echo "-mond"` \
 	  -f`test $(ENABLE_METADATA) == True && echo "metad" || echo "-metad"` \
-	  -f`test $(ENABLE_NETWORK_BSD) == True && echo "network_bsd" || echo "-network_bsd"`
+	  -f`test $(ENABLE_NETWORK_BSD) == True && echo "network_bsd" || echo "-network_bsd"` \
+	  -f`test $(ENABLE_REGEX_PCRE_BUILTIN) == True && echo "regex-pcre-builtin" || echo "-regex-pcre-builtin"` \
+	  -f`test $(ENABLE_REGEX_TDFA) == True && echo "regex-tdfa" || echo "-regex-tdfa"`
 
 
 # Target that builds all binaries (including those that are not
