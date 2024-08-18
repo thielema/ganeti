@@ -641,9 +641,9 @@ AC_ARG_ENABLE([metadata],
 ENABLE_REGEX_PCRE_BUILTIN=
 AC_ARG_ENABLE([regex-pcre-builtin],
   [AS_HELP_STRING([--enable-regex-pcre-builtin],
-  [use regex-pcre-builtin library for regex parsing (default: regex-pcre)])],
+  [use regex-pcre-builtin library for regex parsing (default: check)])],
   [enable_regex_pcre_builtin=$enableval],
-  [enable_regex_pcre_builtin=no])
+  [enable_regex_pcre_builtin=check])
 
 # --enable-regex-tdfa
 ENABLE_REGEX_TDFA=
@@ -722,6 +722,14 @@ HS_REGEX_PCRE_BUILTIN=False
 if test "$enable_regex_tdfa" != no; then
   AC_GHC_PKG_REQUIRE(regex-tdfa)
   HS_REGEX_TDFA=True
+elif test "$enable_regex_pcre_builtin" = check; then
+  AC_GHC_PKG_CHECK([regex-pcre],
+                   [HS_REGEX_PCRE=True],
+                   [HS_REGEX_PCRE=False])
+  if test x$HS_REGEX_PCRE=xFalse; then
+    AC_GHC_PKG_REQUIRE(regex-pcre-builtin)
+    HS_REGEX_PCRE_BUILTIN=True
+  fi
 elif test "$enable_regex_pcre_builtin" != no; then
   AC_GHC_PKG_REQUIRE(regex-pcre-builtin)
   HS_REGEX_PCRE_BUILTIN=True
