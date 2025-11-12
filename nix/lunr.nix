@@ -1,4 +1,4 @@
-pypkgs:
+{ pypkgs, ... }:
 
 let
   pname = "lunr";
@@ -16,18 +16,12 @@ pypkgs.buildPythonPackage {
     sha256 = sha256;
   };
 
-#  nativeBuildInputs = with pypkgs; [
   propagatedBuildInputs = with pypkgs; [
     pytest
     mock
   ];
-/*
-  buildInputs = with pypkgs; [
-    pip
-  ];
-*/
 
-/* https://wiki.nixos.org/wiki/Python */
+  # https://wiki.nixos.org/wiki/Python
   pyproject = true;
   build-system = [
     pypkgs.setuptools
