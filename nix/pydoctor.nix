@@ -1,4 +1,7 @@
-pypkgs:
+{
+  pypkgs,
+  ...
+}:
 
 let
   pname = "pydoctor";
@@ -28,15 +31,13 @@ pypkgs.buildPythonPackage {
     filelock
     pytest
     distutils
-#    (pypkgs.callPackage ./lunr.nix {})
-#    (pypkgs.callPackage (import ./lunr.nix pypkgs) {})
-    (import ./lunr.nix pypkgs) # not callPackage?
+    (pkgs.callPackage (import ./lunr.nix) { pypkgs = pypkgs; })
     platformdirs
   ];
 
-  buildInputs = with pypkgs; [
-    pip
-  ];
+  # buildInputs = with pypkgs; [
+  #   pip
+  # ];
 
   doCheck = false;
 
