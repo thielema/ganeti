@@ -12,8 +12,6 @@
       ...
     }:
     let
-      config = { };
-
       # offer flake contents to all Systems that are theoretically supported by nix
       forAllSystems =
         f:
@@ -23,7 +21,20 @@
           f system (
             import nixpkgs {
               inherit system;
-              inherit config;
+              # Overlay Pandoc with newer version until its upstreamed in nixpkgs
+              overlays = [
+                (final: prev: {
+                  # HACK: The build needs pandoc-cli, pandoc-cli_3_8 needs the override as well
+                  pandoc = prev.haskellPackages.pandoc-cli_3_8.override {
+                    pandoc = (
+                      prev.haskellPackages.pandoc_3_8.override {
+                        citeproc = prev.haskellPackages.citeproc_0_10;
+                        texmath = prev.haskellPackages.texmath_0_13;
+                      }
+                    );
+                  };
+                })
+              ];
             }
           )
         );
@@ -32,7 +43,8 @@
       packages = forAllSystems (
         system: pkgs: rec {
           default = ganeti;
-          ganeti = pkgs.callPackage (import ./nix/package.nix) { test = false; };
+          # needed for the build until default pandoc version is 3.8
+          ganeti = pkgs.callPackage (import ./nix/package.nix) { test = true; };
         }
       );
 
@@ -50,7 +62,9 @@
       devShells = forAllSystems (
         system: pkgs: {
           default = pkgs.mkShell {
-            buildInputs = self.packages.${system}.ganeti.nativeBuildInputs;
+            buildInputs = (
+              self.packages.${system}.ganeti.nativeBuildInputs ++ self.packages.${system}.ganeti.buildInputs
+            );
           };
         }
       );

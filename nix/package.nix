@@ -92,23 +92,12 @@ let
     };
   */
 
-  pandocSrc = pkgs.fetchurl {
-    url = "https://hackage.haskell.org/package/pandoc-3.8.2.1/pandoc-3.8.2.1.tar.gz";
-    sha256 = "sha256-zsKGUy0i2Ft2y+i0SLUfn+LYFb3C8R/fjXmN0tLTje0=";
-  };
-
-  newHaskellPkgs = pkgs.haskellPackages.override {
-    overrides = self: super: {
-      pandoc = self.callCabal2nix "pandoc" pandocSrc { };
-    };
-  };
-
 in
 stdenv.mkDerivation rec {
   pname = "ganeti";
-  version = "3.0";
+  version = "3.1";
 
-  src = ./.;
+  src = ../.;
 
   buildInputs = [
     autoconf
@@ -119,13 +108,6 @@ stdenv.mkDerivation rec {
     python311
     pandoc
     graphviz
-    # newHaskellPackages.pandoc-cli
-    # (self.callHackage "pandoc-cli" "3.7" {})
-    # (haskellPackages.callHackage "pandoc-cli" "3.7.0.2" {})
-    # (pkgs.haskellPackages.hackage2nix "pandoc" "3.8.2.1") # proposed by Claude Haiku
-    # (pkgs.haskellPackages.callCabal2nix "pandoc" pandocSrc {})
-    # pkgs.nix-prefetch-scripts
-    # newHaskellPkgs.pandoc
     git
     # for the tests in checkPhase
     haskellPackages.shelltestrunner
